@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyFeed.Entity;
@@ -23,24 +24,23 @@ namespace MyFeed
 
         private void frmGetShare_Load(object sender, EventArgs e)
         {
-            dgvMain.DataSource = GetDataTable();
+
         }
 
 
         #region 树节点相关方法
         private void btnLoadRootNodes_Click(object sender, EventArgs e)
         {
-
             treeView1.Nodes.Add("订阅");
             AddNodesToTree(treeView1.TopNode, GetDir());
             treeView1.ExpandAll();
         }
 
-        private JArray GetDir(string path = "chenwei/得到订阅")
+        private JArray GetDir(string path = "chenwei")
         {
             string url = string.Format(
-               @"https://device4119087-e7f931fd.wd2go.com:9444/api/2.7/rest/dir/{0}/?device_user_id=26360557&device_user_auth_code=e2d16e0e31267e390a58152b8222dd70&path=/{0}/&show_is_linked=true&include_dir_count=true&format=json&_=1494654426860 ",
-              Uri.EscapeDataString(path.Trim('/')));
+               @"https://device4119087-e7f931fd.wd2go.com:9444/api/2.7/rest/dir/{0}/?device_user_id=26360557&device_user_auth_code={1}&path=/{0}/&show_is_linked=true&include_dir_count=true&format=json&_=1494654426860 ",
+              Uri.EscapeDataString(path.Trim('/')), txtAuth.Text);
             var jobj = HttpUtil.Get(url);
             if (jobj == null) return null;
             return jobj["dir"]["entry"].ToObject<JArray>();
@@ -150,7 +150,21 @@ namespace MyFeed
 
         private DataTable GetDataTable()
         {
-            string sql = "select * from Subscription order by ColumnName,ResourceName";
+            string sql = "select * from Subscription ";
+            string order = " order by ColumnName,ResourceName";
+            if (!string.IsNullOrEmpty(txtColumnName.Text.Trim()) && chkIsDonwLoad.CheckState != CheckState.Indeterminate)
+            {
+                sql = string.Format("{0} where ColumnName like '%{1}%' and IsDownLoad={2}", sql, txtColumnName.Text.Trim(), Convert.ToInt16(chkIsDonwLoad.Checked));
+            }
+            else if (!string.IsNullOrEmpty(txtColumnName.Text.Trim()))
+            {
+                sql = string.Format("{0} where ColumnName like '%{1}%' ", sql, txtColumnName.Text.Trim());
+            }
+            else if (chkIsDonwLoad.CheckState != CheckState.Indeterminate)
+            {
+                sql = string.Format("{0} where   IsDownLoad={1}", sql, Convert.ToInt16(chkIsDonwLoad.Checked));
+            }
+            sql = sql + order;
             var dataSet = SqliteHelper.ExcuteDataSet(sql);
             if (dataSet != null && dataSet.Tables.Count > 0)
                 return dataSet.Tables[0];
@@ -158,12 +172,7 @@ namespace MyFeed
         }
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-          string relativePath=  dgvMain.SelectedRows[0].Cells[3].Value+"";
-            string fileName = dgvMain.SelectedRows[0].Cells[2].Value + "";
-            DownLoadFile(relativePath, txtSaveFileDir.Text, fileName);
-        }
+
 
         private void txtSaveFileDir_DoubleClick(object sender, EventArgs e)
         {
@@ -172,6 +181,38 @@ namespace MyFeed
             txtSaveFileDir.Text = dialog.SelectedPath;
         }
 
+        private void btnSelected_Click(object sender, EventArgs e)
+        {
+            dgvMain.DataSource = GetDataTable();
+        }
+        private void btnDownLoadSingle_Click(object sender, EventArgs e)
+        {
+            DownLoadFile(dgvMain.SelectedRows[0]);
+        }
 
+        private void DownLoadFile(DataGridViewRow row)
+        {
+            Thread thread = new Thread((() =>
+            {
+                string relativePath = row.Cells[3].Value + "";
+                string fileName = row.Cells[2].Value + "";
+                DownLoadFile(relativePath, txtSaveFileDir.Text, fileName);
+            })) { IsBackground = true };
+            thread.Start();
+        }
+
+        private void btnDonwLoadAll_Click(object sender, EventArgs e)
+        {
+            if (dgvMain.RowCount > 50)
+            {
+                var dialog = MessageBox.Show("一次最多下载50行，是否继续？", "提示", MessageBoxButtons.YesNo);
+                if (dialog != DialogResult.Yes) return;
+            }
+            for (int i = 0; i < dgvMain.RowCount; i++)
+            {
+                if (i >= 50) return;
+                DownLoadFile(dgvMain.SelectedRows[i]);
+            }
+        }
     }
 }
