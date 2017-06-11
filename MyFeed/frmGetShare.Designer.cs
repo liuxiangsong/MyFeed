@@ -35,7 +35,6 @@
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtAuth = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.btnDonwLoadAll = new System.Windows.Forms.Button();
             this.btnDownLoadSingle = new System.Windows.Forms.Button();
             this.txtSaveFileDir = new System.Windows.Forms.TextBox();
@@ -46,22 +45,21 @@
             this.btnSelected = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeView1
             // 
             this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeView1.Location = new System.Drawing.Point(-1, 0);
+            this.treeView1.Location = new System.Drawing.Point(-1, 81);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(342, 628);
+            this.treeView1.Size = new System.Drawing.Size(418, 547);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             // 
             // btnLoadNodes
             // 
-            this.btnLoadNodes.Location = new System.Drawing.Point(9, 71);
+            this.btnLoadNodes.Location = new System.Drawing.Point(158, 36);
             this.btnLoadNodes.Name = "btnLoadNodes";
             this.btnLoadNodes.Size = new System.Drawing.Size(107, 23);
             this.btnLoadNodes.TabIndex = 1;
@@ -71,19 +69,19 @@
             // 
             // btnDownLoad
             // 
-            this.btnDownLoad.Location = new System.Drawing.Point(9, 100);
+            this.btnDownLoad.Location = new System.Drawing.Point(158, 7);
             this.btnDownLoad.Name = "btnDownLoad";
             this.btnDownLoad.Size = new System.Drawing.Size(107, 23);
             this.btnDownLoad.TabIndex = 2;
-            this.btnDownLoad.Text = "下载图片";
+            this.btnDownLoad.Text = "下载选中图片节点";
             this.btnDownLoad.UseVisualStyleBackColor = true;
             this.btnDownLoad.Click += new System.EventHandler(this.btnDownLoad_Click);
             // 
             // btnLoadRootNodes
             // 
-            this.btnLoadRootNodes.Location = new System.Drawing.Point(9, 42);
+            this.btnLoadRootNodes.Location = new System.Drawing.Point(9, 36);
             this.btnLoadRootNodes.Name = "btnLoadRootNodes";
-            this.btnLoadRootNodes.Size = new System.Drawing.Size(107, 23);
+            this.btnLoadRootNodes.Size = new System.Drawing.Size(120, 23);
             this.btnLoadRootNodes.TabIndex = 3;
             this.btnLoadRootNodes.Text = "加载根节点";
             this.btnLoadRootNodes.UseVisualStyleBackColor = true;
@@ -103,7 +101,7 @@
             this.dgvMain.ReadOnly = true;
             this.dgvMain.RowTemplate.Height = 23;
             this.dgvMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMain.Size = new System.Drawing.Size(774, 559);
+            this.dgvMain.Size = new System.Drawing.Size(815, 559);
             this.dgvMain.TabIndex = 4;
             // 
             // panel1
@@ -113,30 +111,21 @@
             this.panel1.Controls.Add(this.btnLoadRootNodes);
             this.panel1.Controls.Add(this.btnLoadNodes);
             this.panel1.Controls.Add(this.btnDownLoad);
-            this.panel1.Location = new System.Drawing.Point(344, 149);
+            this.panel1.Location = new System.Drawing.Point(12, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(125, 135);
+            this.panel1.Size = new System.Drawing.Size(405, 66);
             this.panel1.TabIndex = 5;
             // 
             // txtAuth
             // 
-            this.txtAuth.Location = new System.Drawing.Point(9, 15);
+            this.txtAuth.Location = new System.Drawing.Point(9, 9);
             this.txtAuth.Name = "txtAuth";
-            this.txtAuth.Size = new System.Drawing.Size(100, 21);
+            this.txtAuth.Size = new System.Drawing.Size(120, 21);
             this.txtAuth.TabIndex = 4;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btnDonwLoadAll);
-            this.panel2.Controls.Add(this.btnDownLoadSingle);
-            this.panel2.Location = new System.Drawing.Point(344, 13);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(125, 100);
-            this.panel2.TabIndex = 6;
             // 
             // btnDonwLoadAll
             // 
-            this.btnDonwLoadAll.Location = new System.Drawing.Point(10, 56);
+            this.btnDonwLoadAll.Location = new System.Drawing.Point(1015, 37);
             this.btnDonwLoadAll.Name = "btnDonwLoadAll";
             this.btnDonwLoadAll.Size = new System.Drawing.Size(75, 23);
             this.btnDonwLoadAll.TabIndex = 0;
@@ -146,7 +135,7 @@
             // 
             // btnDownLoadSingle
             // 
-            this.btnDownLoadSingle.Location = new System.Drawing.Point(10, 17);
+            this.btnDownLoadSingle.Location = new System.Drawing.Point(924, 37);
             this.btnDownLoadSingle.Name = "btnDownLoadSingle";
             this.btnDownLoadSingle.Size = new System.Drawing.Size(75, 23);
             this.btnDownLoadSingle.TabIndex = 0;
@@ -174,7 +163,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(497, 41);
+            this.label2.Location = new System.Drawing.Point(497, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 8;
@@ -192,7 +181,7 @@
             this.chkIsDonwLoad.AutoSize = true;
             this.chkIsDonwLoad.Checked = true;
             this.chkIsDonwLoad.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.chkIsDonwLoad.Location = new System.Drawing.Point(696, 42);
+            this.chkIsDonwLoad.Location = new System.Drawing.Point(696, 40);
             this.chkIsDonwLoad.Name = "chkIsDonwLoad";
             this.chkIsDonwLoad.Size = new System.Drawing.Size(84, 16);
             this.chkIsDonwLoad.TabIndex = 10;
@@ -202,7 +191,7 @@
             // 
             // btnSelected
             // 
-            this.btnSelected.Location = new System.Drawing.Point(814, 40);
+            this.btnSelected.Location = new System.Drawing.Point(814, 37);
             this.btnSelected.Name = "btnSelected";
             this.btnSelected.Size = new System.Drawing.Size(75, 23);
             this.btnSelected.TabIndex = 11;
@@ -214,14 +203,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1246, 629);
+            this.ClientSize = new System.Drawing.Size(1287, 629);
+            this.Controls.Add(this.btnDonwLoadAll);
             this.Controls.Add(this.btnSelected);
+            this.Controls.Add(this.btnDownLoadSingle);
             this.Controls.Add(this.chkIsDonwLoad);
             this.Controls.Add(this.txtColumnName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSaveFileDir);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvMain);
             this.Controls.Add(this.treeView1);
@@ -231,7 +221,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,7 +234,6 @@
         private System.Windows.Forms.Button btnLoadRootNodes;
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnDownLoadSingle;
         private System.Windows.Forms.TextBox txtSaveFileDir;
         private System.Windows.Forms.Label label1;
