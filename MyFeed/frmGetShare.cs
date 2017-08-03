@@ -24,7 +24,11 @@ namespace MyFeed
 
         private void frmGetShare_Load(object sender, EventArgs e)
         {
-
+            txtSaveFileDir.Text = Path.Combine(Application.StartupPath, "DownLoad");
+            if (!Directory.Exists(txtSaveFileDir.Text))
+            {
+                Directory.CreateDirectory(txtSaveFileDir.Text);
+            }
         }
 
 
@@ -74,8 +78,10 @@ namespace MyFeed
                 else
                 {
                     string fileName = jToken["name"] + "";
-                    if (Path.GetExtension(fileName) == ".mp3") return;
-                    SaveToDB(path, fileName);
+                    if (Path.GetExtension(fileName) != ".mp3")
+                    {
+                        SaveToDB(path, fileName);
+                    }
                 }
             }
         }
@@ -148,6 +154,12 @@ namespace MyFeed
             SqliteHelper.Insert(entity);
         }
 
+        private void UpdateDownLoaded(string resourceName)
+        {
+            string sql = string.Format("update Subscription set IsDownLoad=1 where ResourceName='{0}'", resourceName);
+            SqliteHelper.ExecuteNonQuery(sql);
+        }
+
         private DataTable GetDataTable()
         {
             string sql = "select * from Subscription ";
@@ -192,10 +204,12 @@ namespace MyFeed
 
         private void DownLoadFile(DataGridViewRow row)
         {
+            if(Convert.ToBoolean( row.Cells[6].Value))return;;
             Thread thread = new Thread((() =>
             {
                 string relativePath = row.Cells[3].Value + "";
-                string fileName = row.Cells[2].Value + "";
+                string fileName = row.Cells[2].Value + ""; 
+                UpdateDownLoaded(fileName);
                 DownLoadFile(relativePath, txtSaveFileDir.Text, fileName);
             })) { IsBackground = true };
             thread.Start();
@@ -211,8 +225,18 @@ namespace MyFeed
             for (int i = 0; i < dgvMain.RowCount; i++)
             {
                 if (i >= 50) return;
-                DownLoadFile(dgvMain.SelectedRows[i]);
+                DownLoadFile(dgvMain.Rows[i]);
             }
+        }
+
+        private void btnOpenDirectory_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(txtSaveFileDir.Text))
+            {
+                MessageBox.Show("文件保存目录文件夹不存在");
+                return;
+            }
+            System.Diagnostics.Process.Start("Explorer.exe", txtSaveFileDir.Text);
         }
     }
 }

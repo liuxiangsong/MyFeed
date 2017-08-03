@@ -43,6 +43,7 @@
             this.txtColumnName = new System.Windows.Forms.TextBox();
             this.chkIsDonwLoad = new System.Windows.Forms.CheckBox();
             this.btnSelected = new System.Windows.Forms.Button();
+            this.btnOpenDirectory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -96,7 +97,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMain.Location = new System.Drawing.Point(472, 69);
-            this.dgvMain.MultiSelect = false;
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.ReadOnly = true;
             this.dgvMain.RowTemplate.Height = 23;
@@ -147,7 +147,7 @@
             // 
             this.txtSaveFileDir.Location = new System.Drawing.Point(558, 3);
             this.txtSaveFileDir.Name = "txtSaveFileDir";
-            this.txtSaveFileDir.Size = new System.Drawing.Size(676, 21);
+            this.txtSaveFileDir.Size = new System.Drawing.Size(640, 21);
             this.txtSaveFileDir.TabIndex = 7;
             this.txtSaveFileDir.DoubleClick += new System.EventHandler(this.txtSaveFileDir_DoubleClick);
             // 
@@ -199,11 +199,22 @@
             this.btnSelected.UseVisualStyleBackColor = true;
             this.btnSelected.Click += new System.EventHandler(this.btnSelected_Click);
             // 
+            // btnOpenDirectory
+            // 
+            this.btnOpenDirectory.Location = new System.Drawing.Point(1204, 3);
+            this.btnOpenDirectory.Name = "btnOpenDirectory";
+            this.btnOpenDirectory.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenDirectory.TabIndex = 12;
+            this.btnOpenDirectory.Text = "打开文件夹";
+            this.btnOpenDirectory.UseVisualStyleBackColor = true;
+            this.btnOpenDirectory.Click += new System.EventHandler(this.btnOpenDirectory_Click);
+            // 
             // frmGetShare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1287, 629);
+            this.Controls.Add(this.btnOpenDirectory);
             this.Controls.Add(this.btnDonwLoadAll);
             this.Controls.Add(this.btnSelected);
             this.Controls.Add(this.btnDownLoadSingle);
@@ -243,5 +254,6 @@
         private System.Windows.Forms.CheckBox chkIsDonwLoad;
         private System.Windows.Forms.Button btnSelected;
         private System.Windows.Forms.Button btnDonwLoadAll;
+        private System.Windows.Forms.Button btnOpenDirectory;
     }
 }
